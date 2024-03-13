@@ -18,6 +18,8 @@ async def find_city(message: Message):
     url = "http://127.0.0.1:8000/weather/" + message.text
     async with httpx.AsyncClient() as client:
         r = await client.get(url=url)
-    await message.answer(text=custom_weather_data(r.json(), message.text))
-
+    try:
+      await message.answer(text=custom_weather_data(r.json(), message.text))
+    except:
+        await message.answer(text="Город не найден.")
 
